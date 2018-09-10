@@ -51,6 +51,7 @@ class GaussianRunner(object):
             for index,result in enumerate(results):
                 with open(outputlist[index],'w') as f:
                     print(result,file=f)
+        return outputlist
 
     def runGaussianFromInput(self,input):
         output=self.runCommand(self.command,input=input)
@@ -94,7 +95,3 @@ class GaussianRunner(object):
         input='\n'.join(s)
         output=input.replace('#Put Keywords Here, check Charge and Multiplicity.',keywords)
         return output
-
-if __name__=='__main__':
-    Gau=GaussianRunner(keywords='force b3lyp/6-31g(d,p)')
-    result=Gau.runGaussianInParallel('SMILES',['O','C','N','F'])

@@ -32,7 +32,7 @@ $ python3 setup.py install
 ### Simple example
 
 ```python
->>> from GuassianRunner import GaussianRunner
+>>> from GaussianRunner import GaussianRunner
 >>> GaussianRunner(keywords='opt freq b3lyp/6-31g(d,p)').runGaussianInParallel('SMILES',['C','C=C','CC','CO','OCCO','C=O','CN','O=O','O'])
 
 ```
