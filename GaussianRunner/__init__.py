@@ -100,3 +100,67 @@ class GaussianRunner(object):
         input='\n'.join(s)
         output=input.replace('#Put Keywords Here, check Charge and Multiplicity.',keywords)
         return output
+
+class GaussianAnalyst(object):
+    def __init__(self,properties=["free_energy"]):
+        self.properties=properties
+
+    def readFromLOGs(self,filenamelist):
+        return list(map(self.readFromLOG,filenamelist))
+
+    def readFromLOG(self,filename):
+        with open(filename) as f:
+            energy=None
+            free_energy=None
+            coordinate=None
+            force=None
+            atomic_number=None
+
+            flag=0
+            for line in f:
+                if line.startswith(" SCF Done"):
+                    if "energy" in self.properties:
+                        energy=float(line.split()[4])
+                elif "Sum of electronic and thermal Free Energies=" in line:
+                    if "free_energy" in self.properties:
+                        free_energy=float(line.split()[-1])
+                elif line.startswith(" Center     Atomic                   Forces (Hartrees/Bohr)"):
+                    if "force" in self.properties:
+                        flag=1
+                        force={}
+                elif line.startswith("                          Input orientation:"):
+                    if "coordinate" in self.properties or "atomic_number" in self.properties:
+                        flag=5
+                        coordinate={}
+                        atomic_number={}
+
+                if 1<=flag<=3 or 5<=flag<=9:
+                    flag+=1
+                elif flag==4:
+                    if line.startswith(" -------"):
+                        flag=0
+                    else:
+                        s=line.split()
+                        force[int(s[0])]=[float(x) for x in s[2:5]]
+                elif flag==10:
+                    if line.startswith(" -------"):
+                        flag=0
+                    else:
+                        s=line.split()
+                        atomic_number[int(s[0])]=int(s[1])
+                        coordinate[int(s[0])]=[float(x) for x in s[3:6]]
+
+        read_properties={}
+        read_properties["name"]=filename
+        if "energy" in self.properties:
+            read_properties["energy"]=energy
+        if "free_energy" in self.properties:
+            read_properties["free_energy"]=free_energy
+        if "force" in self.properties:
+            read_properties["force"]=force
+        if "atomic_number" in self.properties:
+            read_properties["atomic_number"]=atomic_number
+        if "coordinate" in self.properties:
+            read_properties["coordinate"]=coordinate
+        return read_properties
+
