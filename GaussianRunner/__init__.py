@@ -150,8 +150,7 @@ class GaussianAnalyst(object):
                         atomic_number[int(s[0])]=int(s[1])
                         coordinate[int(s[0])]=[float(x) for x in s[3:6]]
 
-        read_properties={}
-        read_properties["name"]=filename
+        read_properties={'name':filename}
         if "energy" in self.properties:
             read_properties["energy"]=energy
         if "free_energy" in self.properties:
