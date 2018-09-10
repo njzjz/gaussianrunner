@@ -12,7 +12,12 @@ class GaussianRunner(object):
         self.solution=solution
 
     def runCommand(self,command,input=None):
-        return sp.check_output(command.split(),input=(input.encode() if input else None)).decode('utf-8')
+        try:
+            output=sp.check_output(command.split(),input=(input.encode() if input else None)).decode('utf-8')
+        except sp.CalledProcessError as e:
+            output=e.output.decode('utf-8')
+            print("ERROR: Run command",command)
+        return output
 
     def runGaussianFunction(self,type):
         if type=='input':
@@ -42,10 +47,10 @@ class GaussianRunner(object):
         outputlist=[x+".log" for x in outputlist]
         return outputlist
 
-    def runGaussianInParallel(self,inputtype,inputlist):
+    def runGaussianInParallel(self,inputtype,inputlist,outputlist=None):
         inputtype=inputtype.lower()
         function=self.runGaussianFunction(inputtype)
-        outputlist=self.generateLOGfilename(inputtype,inputlist)
+        outputlist=outputlist if outputlist else self.generateLOGfilename(inputtype,inputlist)
         with ThreadPool(self.thread_num) as pool:
             results=pool.imap(function,inputlist)
             for index,result in enumerate(results):
