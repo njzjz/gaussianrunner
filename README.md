@@ -3,9 +3,9 @@
 
 A Python script to run Gaussian automatically and in batches.
 
-Author: Jinzhe Zeng
+**Author**: Jinzhe Zeng
 
-Email: njzjz@qq.com  10154601140@stu.ecnu.edu.cn
+**Email**: jzzeng@stu.ecnu.edu.cn
 
 [Research Group](http://computchem.cn)
 
