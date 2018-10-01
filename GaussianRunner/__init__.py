@@ -78,16 +78,16 @@ class GaussianRunner(object):
         return self.runGaussianWithOpenBabel(obabel_command)
 
     def runGaussianFromXYZ(self,filename):
-        return runGaussianFromType(filename,'xyz')
+        return self.runGaussianFromType(filename,'xyz')
 
     def runGaussianFromPDB(self,filename):
-        return runGaussianFromType(filename,'pdb')
+        return self.runGaussianFromType(filename,'pdb')
 
     def runGaussianFromMOL(self,filename):
-        return runGaussianFromType(filename,'mol')
+        return self.runGaussianFromType(filename,'mol')
 
     def runGaussianFromOthers(self,filename):
-        return runGaussianFromType(filename,self.fileformat)
+        return self.runGaussianFromType(filename,self.fileformat)
 
     def runGaussianFromSMILES(self,SMILES):
         obabel_command='obabel -:'+SMILES+' --gen3d -ogjf'
