@@ -1,6 +1,7 @@
 from multiprocessing.pool import ThreadPool
 from multiprocessing import cpu_count
 import subprocess as sp
+import time
 
 class GaussianRunner(object):
     def __init__(self,command="g16",cpu_num=None,nproc=4,keywords='',solution=False):
@@ -11,12 +12,18 @@ class GaussianRunner(object):
         self.keywords=keywords
         self.solution=solution
 
+    def logging(self,*message):
+        if not self.openlogfile:
+            self.openlogfile=open(self.logfile,'a')
+            localtime = time.asctime( time.localtime(time.time()) )
+            print(localtime,'GaussianRunner',*message)
+
     def runCommand(self,command,input=None):
         try:
             output=sp.check_output(command.split(),input=(input.encode() if input else None)).decode('utf-8')
         except sp.CalledProcessError as e:
             output=e.output.decode('utf-8')
-            print("ERROR: Run command",command)
+            self.logging("ERROR: Run command",command)
         return output
 
     def runGaussianFunction(self,type):
