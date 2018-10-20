@@ -13,10 +13,8 @@ class GaussianRunner(object):
         self.solution=solution
 
     def logging(self,*message):
-        if not self.openlogfile:
-            self.openlogfile=open(self.logfile,'a')
-            localtime = time.asctime( time.localtime(time.time()) )
-            print(localtime,'GaussianRunner',*message)
+        localtime = time.asctime( time.localtime(time.time()) )
+        print(localtime,'GaussianRunner',*message)
 
     def runCommand(self,command,input=None):
         try:
