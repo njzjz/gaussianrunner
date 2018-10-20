@@ -6,8 +6,10 @@ from GaussianRunner import GaussianRunner
 
 class GaussianRunner_MPI(GaussianRunner):
     def chunks(self,arr, m):
-        n = int(math.ceil(len(arr) / float(m)))
-        return [arr[i:i + n] for i in range(0, len(arr), n)]
+        shared=[[] for i in range(m)]
+        for index,job in enumerate(arr):
+            shared[len(arr)%m].append(job)
+        return shared
 
     def run_MPI(self,type,jobs):
         comm=MPI.COMM_WORLD
