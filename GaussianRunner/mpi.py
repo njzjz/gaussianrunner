@@ -15,7 +15,7 @@ class GaussianRunner_MPI(GaussianRunner):
         name=MPI.Get_processor_name()
         size=comm.Get_size()
         if rank == 0:
-            jobs_to_share = chunks(jobs,size)
+            jobs_to_share = self.chunks(jobs,size)
         else:
             jobs_to_share = None
         recvjobs = comm.scatter(jobs_to_share, root=0)

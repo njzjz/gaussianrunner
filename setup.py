@@ -1,6 +1,6 @@
 from setuptools import setup
 setup(name='GaussianRunner',
-      version='1.0.6',
+      version='1.0.7',
       description='A script to run Gaussian automatically.',
       keywords="Gaussian",
       url='https://github.com/njzjz/GaussianRunner',
