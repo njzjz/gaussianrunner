@@ -1,6 +1,6 @@
 from setuptools import setup
 setup(name='GaussianRunner',
-      version='1.0.10',
+      version='1.0.11',
       description='A script to run Gaussian automatically.',
       keywords="Gaussian",
       url='https://github.com/njzjz/GaussianRunner',
@@ -8,4 +8,3 @@ setup(name='GaussianRunner',
       author_email='jzzeng@stu.ecnu.edu.cn',
       packages=['GaussianRunner'],
       install_requires=['mpi4py'])
-
