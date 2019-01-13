@@ -34,6 +34,6 @@ class GaussianRunner_MPI(GaussianRunner):
 
         with MPIPoolExecutor() as executor:
             results = executor.map(runGaussian, job)
-            for result in results:
+            for _ in results:
                 pass
         self.logging("finish jobs:", *jobs)
