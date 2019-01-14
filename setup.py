@@ -7,4 +7,4 @@ setup(name='gaussianrunner',
       author='Jinzhe Zeng',
       author_email='jzzeng@stu.ecnu.edu.cn',
       packages=['gaussianrunner'],
-      install_requires=['mpi4py'])
+      install_requires=[])

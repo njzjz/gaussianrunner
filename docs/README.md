@@ -12,7 +12,7 @@ A Python script to run Gaussian automatically and in batches.
 ## Requirements
 * [Gaussian](http://gaussian.com/)
 * [OpenBabel](https://github.com/openbabel/openbabel)
-* [MPI4PY](https://github.com/mpi4py/mpi4py)
+* [MPI4PY](https://github.com/mpi4py/mpi4py) (if you need to run with MPI)
 
 ## Installation
 
