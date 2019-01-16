@@ -12,6 +12,6 @@ setup(name='gaussianrunner',
           "mpi":["mpi4py"]
       },
       test_suite='gaussianrunner.test',
-      tests_require=['']
+      tests_require=[]
       )
 

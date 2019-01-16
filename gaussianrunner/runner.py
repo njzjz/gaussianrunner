@@ -24,7 +24,7 @@ class GaussianRunner(object):
     def runCommand(self, command, inputstr=None):
         try:
             output = sp.check_output(command.split(), input=(
-                inputstr.encode() if input else None)).decode('utf-8')
+                inputstr.encode() if inputstr else None)).decode('utf-8')
         except sp.CalledProcessError as e:
             output = e.output.decode('utf-8')
             self._logging("ERROR: Run command", command)
