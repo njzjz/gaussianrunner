@@ -9,6 +9,8 @@ setup(name='gaussianrunner',
       packages=['gaussianrunner'],
       install_requires=[],
       extras_require={
-          "mpi":["mpi4py"]
-      })
-
+          "mpi": ["mpi4py"]
+      },
+      test_suite='gaussianrunner.test',
+      tests_require=[]
+      )
