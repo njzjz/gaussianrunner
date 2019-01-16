@@ -1,10 +1,11 @@
 """GaussianRunner"""
 
 
-from multiprocessing.pool import ThreadPool
-from multiprocessing import cpu_count
+import os
 import subprocess as sp
 import time
+from multiprocessing import cpu_count
+from multiprocessing.pool import ThreadPool
 
 
 class GaussianRunner(object):
@@ -35,9 +36,8 @@ class GaussianRunner(object):
         elif fileformat == 'smiles':
             function = self.runGaussianFromSMILES
         else:
-            def runGaussianFromFileType(self, filename):
-                return self.runGaussianFromType(filename, fileformat)
-            function = runGaussianFromFileType
+            def function(filename): return self.runGaussianFromType(
+                filename, fileformat)
         return function
 
     def generateLOGfilename(self, inputformat, inputlist):
