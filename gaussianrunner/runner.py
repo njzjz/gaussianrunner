@@ -47,20 +47,19 @@ class GaussianRunner(object):
             outputlist = [x.replace('/', '／') .replace('\\', '＼')
                           for x in inputlist]
         else:
-            outputlist = [
-                x[:-len(inputformat)-1] if x.lower().endswith("."+inputformat) else x for x in inputlist]
-        outputlist = [x+".log" for x in outputlist]
+            outputlist = [os.path.splitext(x)[0] for x in inputlist]
+        outputlist = [f'{x}.log' for x in outputlist]
         return outputlist
 
     def runGaussianInParallel(self, inputtype, inputlist, outputlist=None):
         inputtype = inputtype.lower()
         function = self.runGaussianFunction(inputtype)
-        outputlist = outputlist if outputlist else self.generateLOGfilename(
-            inputtype, inputlist)
+        if outputlist is None:
+            outputlist = self.generateLOGfilename(inputtype, inputlist)
         with ThreadPool(self.thread_num) as pool:
             results = pool.imap(function, inputlist)
-            for index, result in enumerate(results):
-                with open(outputlist[index], 'w') as f:
+            for outputfile, result in zip(outputlist, results):
+                with open(outputfile, 'w') as f:
                     print(result, file=f)
         return outputlist
 
