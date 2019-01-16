@@ -20,42 +20,35 @@ class GaussianRunner(object):
         localtime = time.asctime(time.localtime(time.time()))
         print(localtime, 'GaussianRunner', *message)
 
-    def runCommand(self, command, input=None):
+    def runCommand(self, command, inputstr=None):
         try:
             output = sp.check_output(command.split(), input=(
-                input.encode() if input else None)).decode('utf-8')
+                inputstr.encode() if input else None)).decode('utf-8')
         except sp.CalledProcessError as e:
             output = e.output.decode('utf-8')
             self._logging("ERROR: Run command", command)
         return output
 
-    def runGaussianFunction(self, type):
-        if type == 'input':
+    def runGaussianFunction(self, fileformat):
+        if fileformat == 'input':
             function = self.runGaussianFromInput
-        elif type == 'smiles':
+        elif fileformat == 'smiles':
             function = self.runGaussianFromSMILES
-        elif type == 'gjf':
-            function = self.runGaussianFromGJF
-        elif type == 'xyz':
-            function = self.runGaussianFromXYZ
-        elif type == 'pdb':
-            function = self.runGaussianFromPDB
-        elif type == 'mol':
-            function = self.runGaussianFromMOL
         else:
-            self.fileformat = type
-            function = self.runGaussianFromOthers
+            def runGaussianFromFileType(self, filename):
+                return self.runGaussianFromType(filename, fileformat)
+            function = runGaussianFromFileType
         return function
 
-    def generateLOGfilename(self, inputtype, inputlist):
-        if inputtype == 'input':
+    def generateLOGfilename(self, inputformat, inputlist):
+        if inputformat == 'input':
             outputlist = range(len(inputlist))
-        elif inputtype == 'smiles':
+        elif inputformat == 'smiles':
             outputlist = [x.replace('/', '／') .replace('\\', '＼')
                           for x in inputlist]
         else:
             outputlist = [
-                x[:-len(inputtype)-1] if x.lower().endswith("."+inputtype) else x for x in inputlist]
+                x[:-len(inputformat)-1] if x.lower().endswith("."+inputformat) else x for x in inputlist]
         outputlist = [x+".log" for x in outputlist]
         return outputlist
 
@@ -71,8 +64,8 @@ class GaussianRunner(object):
                     print(result, file=f)
         return outputlist
 
-    def runGaussianFromInput(self, input):
-        output = self.runCommand(self.command, input=input)
+    def runGaussianFromInput(self, inputstr):
+        output = self.runCommand(self.command, inputstr=inputstr)
         return output
 
     def runGaussianFromGJF(self, filename):
@@ -81,38 +74,22 @@ class GaussianRunner(object):
         return output
 
     def runGaussianWithOpenBabel(self, obabel_command):
-        input = self.runCommand(obabel_command)
-        input = self.generateGJF(input)
-        output = self.runGaussianFromInput(input)
+        inputstr = self.runCommand(obabel_command)
+        inputstr = self.generateGJF(inputstr)
+        output = self.runGaussianFromInput(inputstr)
         return output
 
     def runGaussianFromType(self, filename, fileformat):
-        obabel_command = 'obabel -i'+fileformat+' '+filename+' -ogjf'
+        obabel_command = f'obabel -i {fileformat} {filename} -ogjf'
         return self.runGaussianWithOpenBabel(obabel_command)
-
-    def runGaussianFromXYZ(self, filename):
-        return self.runGaussianFromType(filename, 'xyz')
-
-    def runGaussianFromPDB(self, filename):
-        return self.runGaussianFromType(filename, 'pdb')
-
-    def runGaussianFromMOL(self, filename):
-        return self.runGaussianFromType(filename, 'mol')
-
-    def runGaussianFromOthers(self, filename):
-        return self.runGaussianFromType(filename, self.fileformat)
 
     def runGaussianFromSMILES(self, SMILES):
-        obabel_command = 'obabel -:'+SMILES+' --gen3d -ogjf'
+        obabel_command = f'obabel -:{SMILES} --gen3d -ogjf'
         return self.runGaussianWithOpenBabel(obabel_command)
 
-    def generateGJF(self, input):
-        keywords = '%nproc=' + \
-            str(self.nproc)+'\n# '+self.keywords + \
-            (' scrf=smd ' if self.solution else '')
-        s = input.split('\n')
+    def generateGJF(self, gaussianstr):
+        keywords = f'%nproc={self.nproc}\n# {self.keywords} {" scrf=smd " if self.solution else ""}'
+        s = gaussianstr.split('\n')
+        s[0] = keywords
         s[2] = 'Run automatically by GaussianRunner'
-        input = '\n'.join(s)
-        output = input.replace(
-            '#Put Keywords Here, check Charge and Multiplicity.', keywords)
-        return output
+        return '\n'.join(s)
