@@ -36,8 +36,8 @@ class GaussianRunner(object):
         elif fileformat == 'smiles':
             function = self.runGaussianFromSMILES
         else:
-            def function(filename): return self.runGaussianFromType(
-                filename, fileformat)
+            def function(filename):
+                return self.runGaussianFromType(filename, fileformat)
         return function
 
     def generateLOGfilename(self, inputformat, inputlist):
