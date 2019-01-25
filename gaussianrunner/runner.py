@@ -33,6 +33,8 @@ class GaussianRunner(object):
     def runGaussianFunction(self, fileformat):
         if fileformat == 'input':
             function = self.runGaussianFromInput
+        elif fileformat == 'gjf':
+            function = self.runGaussianFromGJF
         elif fileformat == 'smiles':
             function = self.runGaussianFromSMILES
         else:
