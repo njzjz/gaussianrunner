@@ -60,13 +60,28 @@ class GaussianAnalyst(object):
 
         read_properties = {'name': filename}
         if "energy" in self.properties:
-            read_properties["energy"] = energy
+            try:
+                read_properties["energy"] = energy
+            except:
+                read_properties["energy"] = None
         if "free_energy" in self.properties:
-            read_properties["free_energy"] = free_energy
+            try:
+                read_properties["free_energy"] = free_energy
+            except:
+                read_properties["free_energy"] = None
         if "force" in self.properties:
-            read_properties["force"] = np.array(force)
+            try:
+                read_properties["force"] = np.array(force)
+            except:
+                read_properties["force"] = None
         if "atomic_number" in self.properties:
-            read_properties["atomic_number"] = np.array(atomic_number)
+            try:
+                read_properties["atomic_number"] = np.array(atomic_number)
+            except:
+                read_properties["atomic_number"] = None
         if "coordinate" in self.properties:
-            read_properties["coordinate"] = np.array(coordinate)
+            try:
+                read_properties["coordinate"] = np.array(coordinate)
+            except:
+                read_properties["coordinate"] = None
         return read_properties
