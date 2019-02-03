@@ -10,6 +10,7 @@ cache:
 env:
   global:
     - PYTHON_VERSION=3.7
+    - PIP_DEPENDENCIES="tox-conda"
     - secure: "iS/diIEvWBplghCVDO4n2ugm0OI1oJnRV2DqHTwxKDN1nNWMQX942R2USIjCXHSmfBl6hICwkH59XPbjy6n8pyNdBDt0CjBltTiQtb0WfTMTNIrFQuu94vtVRjQLC5nL5xF+lYxvyhDfDTWoFTbsowY1j+aJ+G111Rq7Uxx0G9I8fhTdN5lSfeIxdYt4ma2eP+glkYKBVcPuN1jOdzL++agSR8s5VkEb/ZiHI+N1ZLxChHnWuox+iNBABd74C3mVRsIG4+e14Y+s85lbQNmzZZUPi7NKiR0kyrk8WSfJtEV3b0A/llPEw8TIDmYRgxccq23yYZn85uj7pv00kXlH49Qu/1HHFbxCpj3C3IPb+AE1ia3y+lzbVzbrkjoAhLasyV/if7Hzzv8yAAZXsR3XQitzLN99vOMakwoI8ozu5UxaYPZNeSRPUI4uiwNi9m5TN30rMGy+7jZPQsFHgVW/IGxSsGQeCgO1qu6V5SjSukjwph9J7nJcfOBq8MurHWENv04UqHj+YQWV1P1XW06PdVYHqOpKKU6inj74Bh7VZD2Tuh4/cZaikLXFyuEaOEK+Y6L6P/g+6rLKBGu73u1OP8EKdgcoZ4Ulg1MDv0oQ92PzRHZMk78Plp1vd9tsn44zKddAQ14aeaBUirvZeSmh4FnP7bh0VmEYthCtXqOUwS4="
 
 before_install:
@@ -24,8 +25,6 @@ before_install:
 install:
   - git clone --depth 1 git://github.com/astropy/ci-helpers.git
   - source ci-helpers/travis/setup_conda.sh
-  - conda install openbabel -c openbabel
-  - pip install .
 
 script:
-  - python -c "from gaussianrunner import GaussianRunner,GaussianAnalyst;logfiles=GaussianRunner(keywords='opt freq b3lyp/6-31g(d,p)').runGaussianInParallel('SMILES',['C']);print(GaussianAnalyst(properties=['free_energy']).readFromLOGs(logfiles))"
+  - tox
