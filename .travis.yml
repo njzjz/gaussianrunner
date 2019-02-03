@@ -15,9 +15,9 @@ env:
 
 before_install:
   - if [ ! -d "g16" ]; then
-      git clone --depth 1 https://github.com/njzjz/gdown.pl
-      ./gdown.pl/gdown.pl $GAUSSIANURL 'g16.tbz'
-      tar -xjf g16.tbz
+      git clone --depth 1 https://github.com/njzjz/gdown.pl;
+      ./gdown.pl/gdown.pl $GAUSSIANURL 'g16.tbz'>/dev/null;
+      tar -xjf g16.tbz;
     fi
   - export g16root=$(pwd)
   - source g16/bsd/g16.profile
