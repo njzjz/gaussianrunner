@@ -12,7 +12,7 @@ class GaussianRunner(object):
     def __init__(self, command="g16", cpu_num=None, nproc=4, keywords='', solution=False):
         self.command = command
         self.cpu_num = cpu_num if cpu_num else cpu_count()
-        self.nproc = nproc
+        self.nproc = min(nproc, self.cpu_num)
         self.thread_num = self.cpu_num//self.nproc
         self.keywords = keywords
         self.solution = solution
