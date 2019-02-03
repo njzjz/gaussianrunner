@@ -1,0 +1,22 @@
+language: python
+matrix:
+  include:
+    - python: 3.6
+cache: pip
+
+env:
+  global:
+    - secure: "p5dLHu3r3P3Sz+UpLEH06vvU8TpxUhucOSYd+xVe9Ta1488ZJxsHS9zUhF5YL/PkNRyZx7vgVTWbjKQQoNMiEQ43+8EJyCgRl6WpZBP0rC2TkooUf0/neE7ZM9ylZSxJ06T1FH5SO84V1x1S9Xus1TaXnZyvTLQqVsshlvP1p0JKJAVXc9S88RWbUg8ctpMOIrmYB7NwQbg30ws82y9BM9VqzQKBHCYNRl1gpNjXYfFZmIM72rM8qjnMdhpOeoNfarCIRAtAXnCG7zh3f1babacbZG/wj9jf+lpkMNThtEgAtbn5SV8Ci7l5mBG3t6p2m1c9t9HehS2ZWTg/HTHqlrqOqzhS1fBda0JxIu61z6G4UZ/ZlfV8F4FiM2EzDyfnKO1lWqQiVA+mGxcpb4T/qRHHq3oZy7moYjWdInFTurEL6iq1qbKOWip97/Ih3LvylPl9ENIoTwaCjFhJ/seBYKGjFZoAcbkbKyFHVqi1zPRt9+DsxXVATWqQWTYhA/ATqxkfdKDycZKwWdFY+3LFJ0dtnfgABikDVQwXtxRh8FcbBs07sVtwK966lxFM9ia8aMJmEHQURYVCbYwkJ+m4MtPgEoZx68YiY800bWGjzCA0G08q9dCbjGSPbQcgq7Th1ucKiHXo7DjGYl3FWVXJaHw9sFmNe+i8pddNDZW/6MU="
+
+before_install:
+  - git clone --depth 1 https://github.com/circulosmeos/gdown.pl
+  - ./gdown.pl/gdown.pl $GAUSSIANURL 'g16.tbz'
+  - tar -xjvf g16.tbz
+  - export g16root=$(pdw)
+  - source $g16root/g16/bsd/g16.profile
+
+install:
+  - pip install .
+
+script:
+  - python -c "from gaussianrunner import GaussianRunner,GaussianAnalyst;logfiles=GaussianRunner(keywords='opt freq b3lyp/6-31g(d,p)').runGaussianInParallel('SMILES',['C','C=C','CC','CO','OCCO','C=O','CN','O=O','O']);print(GaussianAnalyst(properties=['free_energy']).readFromLOGs(logfiles))"
