@@ -3,6 +3,7 @@ os:
   - linux
 sudo: false
 cache:
+  timeout: 1000
   pip: true
   directories:
     - g16
