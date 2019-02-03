@@ -5,7 +5,7 @@ from . import GaussianRunner, GaussianAnalyst
 
 class Test_all(unittest.TestCase):
     def test_gaussianrunner(self):
-        folder = "test"
+        folder = "testfiles"
         if not os.path.exists(folder):
             os.makedirs(folder)
         species = ['C', 'C=C', 'CC', 'CO', 'OCCO', 'C=O', 'CN', 'O=O', 'O']
