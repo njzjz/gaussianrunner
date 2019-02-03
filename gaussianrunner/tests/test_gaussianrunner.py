@@ -1,6 +1,6 @@
 import unittest
 import os
-from . import GaussianRunner, GaussianAnalyst
+from gaussianrunner import GaussianRunner, GaussianAnalyst
 
 
 class Test_all(unittest.TestCase):
