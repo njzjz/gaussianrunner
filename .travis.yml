@@ -12,7 +12,7 @@ before_install:
   - git clone --depth 1 https://github.com/njzjz/gdown.pl
   - ./gdown.pl/gdown.pl $GAUSSIANURL 'g16.tbz'
   - tar -xjvf g16.tbz
-  - export g16root=$(pdw)
+  - export g16root=$(pwd)
   - source $g16root/g16/bsd/g16.profile
 
 install:
