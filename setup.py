@@ -16,7 +16,7 @@ if __name__ == '__main__':
           url='https://github.com/njzjz/gaussianrunner',
           author='Jinzhe Zeng',
           author_email='jzzeng@stu.ecnu.edu.cn',
-          install_requires=['numpy'],
+          install_requires=['numpy', 'coloredlogs'],
           extras_require={
               "mpi": ["mpi4py"]
           },

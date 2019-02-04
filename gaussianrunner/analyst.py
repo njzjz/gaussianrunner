@@ -1,12 +1,12 @@
-"""GaussianAnalyst"""
+"""GaussianAnalyst."""
 
 
 import numpy as np
 
 
 class GaussianAnalyst(object):
-    def __init__(self, properties=["free_energy"]):
-        self.properties = properties
+    def __init__(self, properties=None):
+        self.properties = properties if properties else ["energy"]
 
     def readFromLOGs(self, filenamelist):
         return list(map(self.readFromLOG, filenamelist))
