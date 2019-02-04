@@ -1,12 +1,14 @@
+import logging
+
 from mpi4py import MPI
 from mpi4py.futures import MPIPoolExecutor
-import math
-import os
+
 from . import GaussianRunner
 
 
 class GaussianRunner_MPI(GaussianRunner):
-    def chunks(self, arr, m):
+    @classmethod
+    def chunks(cls, arr, m):
         shared = [[] for i in range(m)]
         for index, job in enumerate(arr):
             shared[index % m].append(job)
@@ -24,8 +26,7 @@ class GaussianRunner_MPI(GaussianRunner):
         recvjobs = comm.scatter(jobs_to_share, root=0)
 
         self.runGaussianInParallel(fileformat, recvjobs)
-        self._logging(name, f"({rank+1}/{size})",
-                      "finish jobs:", *recvjobs)
+        logging.info(f"{name} ({rank+1}/{size}) finishes {len(recvjobs)} jobs.")
 
     def run_MPIPool(self, fileformat, jobs):
         def runGaussian(job):
@@ -35,4 +36,4 @@ class GaussianRunner_MPI(GaussianRunner):
             results = executor.map(runGaussian, jobs)
             for _ in results:
                 pass
-        self._logging("finish jobs:", *jobs)
+        logging.info(f"finish {len(jobs)} jobs.")

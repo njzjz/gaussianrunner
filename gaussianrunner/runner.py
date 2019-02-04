@@ -1,15 +1,17 @@
-"""GaussianRunner"""
+"""GaussianRunner."""
 
 
 import os
 import subprocess as sp
-import time
 from multiprocessing import cpu_count
 from multiprocessing.pool import ThreadPool
+import logging
 
 
 class GaussianRunner(object):
-    def __init__(self, command="g16", cpu_num=None, nproc=4, keywords='', solution=False):
+    def __init__(
+            self, command="g16", cpu_num=None, nproc=4, keywords='',
+            solution=False):
         self.command = command
         self.cpu_num = cpu_num if cpu_num else cpu_count()
         self.nproc = min(nproc, self.cpu_num)
@@ -17,17 +19,13 @@ class GaussianRunner(object):
         self.keywords = keywords
         self.solution = solution
 
-    def _logging(self, *message):
-        localtime = time.asctime(time.localtime(time.time()))
-        print(localtime, 'GaussianRunner', *message)
-
     def runCommand(self, command, inputstr=None):
         try:
             output = sp.check_output(command.split(), input=(
                 inputstr.encode() if inputstr else None)).decode('utf-8')
         except sp.CalledProcessError as e:
             output = e.output.decode('utf-8')
-            self._logging("ERROR: Run command", command)
+            logging.error(f"Run command {command} fail.")
         return output
 
     def runGaussianFunction(self, fileformat):
@@ -42,7 +40,8 @@ class GaussianRunner(object):
                 return self.runGaussianFromType(filename, fileformat)
         return function
 
-    def generateLOGfilename(self, inputformat, inputlist):
+    @classmethod
+    def generateLOGfilename(cls, inputformat, inputlist):
         if inputformat == 'input':
             outputlist = range(len(inputlist))
         elif inputformat == 'smiles':
@@ -62,7 +61,7 @@ class GaussianRunner(object):
             results = pool.imap(function, inputlist)
             for outputfile, result in zip(outputlist, results):
                 with open(outputfile, 'w') as f:
-                    print(result, file=f)
+                    f.write(result)
         return outputlist
 
     def runGaussianFromInput(self, inputstr):
