@@ -102,3 +102,4 @@ ENV/
 
 # test
 test/
+.pytest_cache/

@@ -1,0 +1,25 @@
+language: c
+os:
+  - linux
+sudo: false
+cache: pip
+
+env:
+  global:
+    - PYTHON_VERSION=3.7
+    - PIP_DEPENDENCIES="tox-conda"
+    - secure: "bKT1rU2NlvImqfOv6dLKRlmqhs3A25HxmwhuovuwRSTa3T06D41hUJKnLaId2XhL0AMTYD3edCZVGBgnBJP8vXb9XIVQq5IsWlLhVA8WTeZKmwLzfFIfzW1+RCIMPoYL87t9nvkVH3Mpz5d2LiRl/prJ2HCX/IumRT2rZwKSYy51jPfWWIdLRsj1lu2B1RwhGzpss6uEYBZkUF4lHSZizFoIUZGJWVo5XlH8ZRsY0ZTbJ14/u/MpETraegm2ri3fpi5fSTvkYH92+dHZzTPz8pa+nztw6lVyo3Gz+geFTTGTj8KZLoFaDgsMMj3539h8flokSl5LKAoSmcKWPp/3FSaCnQWDFWzJvfuc5YYwQklnFj1K1Vph9QLbXYM6P7J7xpNa/XPtFARI45kUOV7efavbxXhrFqhxPbF6mIRpavmNb2xJ7LJ7rpzSI7FWoapkMzW38wRi8JsGanX4g6hbqCbAvgnbCeGWaAQ7NA0vOVea756Me43q72+XN057ZnerhUIIVCrtXGUsTdaIPReEqhNuhi9eCseaYXLTO123COg7FhV9lIIEBXuRxh/hY6Ym2vUXs6Du1PmJV2dhK6DbsfIIrslQRuBebowmtl1dyxIM8R+BZpdtV14lDiGQr0DV8e+mylzWE9dek9qzf9/ImiFcVBR+/0Zdwq4cNAJcezM="
+
+before_install:
+  - git clone --depth 1 https://github.com/circulosmeos/gdown.pl;
+  - ./gdown.pl/gdown.pl $GAUSSIANURL 'g16.tbz'>/dev/null 2>&1;
+  - tar -xjvf g16.tbz;
+  - export g16root=$(pwd)
+  - source g16/bsd/g16.profile
+
+install:
+  - git clone --depth 1 git://github.com/astropy/ci-helpers.git
+  - source ci-helpers/travis/setup_conda.sh
+
+script:
+  - tox
