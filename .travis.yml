@@ -8,12 +8,12 @@ env:
   global:
     - PYTHON_VERSION=3.7
     - PIP_DEPENDENCIES="tox-conda"
-    - secure: "bKT1rU2NlvImqfOv6dLKRlmqhs3A25HxmwhuovuwRSTa3T06D41hUJKnLaId2XhL0AMTYD3edCZVGBgnBJP8vXb9XIVQq5IsWlLhVA8WTeZKmwLzfFIfzW1+RCIMPoYL87t9nvkVH3Mpz5d2LiRl/prJ2HCX/IumRT2rZwKSYy51jPfWWIdLRsj1lu2B1RwhGzpss6uEYBZkUF4lHSZizFoIUZGJWVo5XlH8ZRsY0ZTbJ14/u/MpETraegm2ri3fpi5fSTvkYH92+dHZzTPz8pa+nztw6lVyo3Gz+geFTTGTj8KZLoFaDgsMMj3539h8flokSl5LKAoSmcKWPp/3FSaCnQWDFWzJvfuc5YYwQklnFj1K1Vph9QLbXYM6P7J7xpNa/XPtFARI45kUOV7efavbxXhrFqhxPbF6mIRpavmNb2xJ7LJ7rpzSI7FWoapkMzW38wRi8JsGanX4g6hbqCbAvgnbCeGWaAQ7NA0vOVea756Me43q72+XN057ZnerhUIIVCrtXGUsTdaIPReEqhNuhi9eCseaYXLTO123COg7FhV9lIIEBXuRxh/hY6Ym2vUXs6Du1PmJV2dhK6DbsfIIrslQRuBebowmtl1dyxIM8R+BZpdtV14lDiGQr0DV8e+mylzWE9dek9qzf9/ImiFcVBR+/0Zdwq4cNAJcezM="
+    - secure: "cwYqOqN7tSDoK1j7kjO9FMY6GBLndGmNH1aUTg5Yf6tzGh21ilvR0PHZByC97D2stfGqoFmyZv+xtEQJ8weGLspj7feg2m8e8BIege3+BiDzpOFnTzF/CyQLApAgIQNMQpjxFkkdOvbvCJIniKc8gsNm3JxTcrw+Iorfls1GAXS7juCOy6rQ+gZJPCLOUDLA4kzqgoL73lWz4I5yEXR3ifkfJFdvBlOX/UU0KYFKIfCm3YDtlymsMRpAdxBDsATb4OclKFU+9Lu62+XkkYzc7jfzyjvZQlu3NJzU/Iy9vEgQOx/EmputXy891bp4aQz3ZggHPZNX1sDEF8FdGcyjfCVq0P1KFxfkDvSBDZbg6AGBVQNlFBEM5SXN5jORLmwl4aXSBmsPM68X0P0ilrID1vPrAavVjqbpRPHNQ+jYcOCddtDd1T6syrHiCdG9WhGa2YFBzoWUbgY00R/S7L47jibkYrsxywTP++f37+S2JDXYo1XkDzJIkWjddeYxn09hOn6PlSuUR9692h4F9L0h5myVyyEJgQoRxTu7+4ArtarxDC/j/7cB70x+uvUPpaPnehppbZU4N11/Dp/R+Wk4EZVW1DR23dAgQzcCoEbWelTtV1AKR7rh+6rSLggOzjoMf1fJxhlBxiTIDKvN6E5i77VBYp3s9hdKsMLTqSUKZTM="
 
 before_install:
   - git clone --depth 1 https://github.com/circulosmeos/gdown.pl;
-  - ./gdown.pl/gdown.pl $GAUSSIANURL 'g16.tbz'>/dev/null 2>&1;
-  - tar -xjvf g16.tbz;
+  - ./gdown.pl/gdown.pl $GAUSSIANURL 'g16.tgz'>/dev/null 2>&1;
+  - tar -xzvf g16.tgz;
   - export g16root=$(pwd)
   - source g16/bsd/g16.profile
 
