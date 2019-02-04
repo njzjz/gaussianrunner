@@ -1,5 +1,10 @@
 # GaussianRunner
-[![python3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://badge.fury.io/py/GaussianRunner)[![pypi](https://badge.fury.io/py/GaussianRunner.svg)](https://badge.fury.io/py/MDDatasetMaker)
+
+[![python version](https://img.shields.io/pypi/pyversions/gaussianrunner.svg?logo=python&logoColor=white)](https://pypi.org/project/gaussianrunner)
+[![PyPI](https://img.shields.io/pypi/v/gaussianrunner.svg)](https://pypi.org/project/gaussianrunner)
+[![Build Status](https://travis-ci.com/njzjz/gaussianrunner.svg?branch=master)](https://travis-ci.com/njzjz/gaussianrunner)
+[![Coverage Status](https://coveralls.io/repos/github/njzjz/gaussianrunner/badge.svg?branch=master)](https://coveralls.io/github/njzjz/gaussianrunner?branch=master)
+[![codecov](https://codecov.io/gh/njzjz/gaussianrunner/branch/master/graph/badge.svg)](https://codecov.io/gh/njzjz/gaussianrunner)
 
 A Python script to run Gaussian automatically and in batches.
 
@@ -7,7 +12,7 @@ A Python script to run Gaussian automatically and in batches.
 
 **Email**: jzzeng@stu.ecnu.edu.cn
 
-[Research Group](http://computchem.cn)
+[![Research Group](https://img.shields.io/website-up-down-green-red/http/computchem.cn.svg?label=Research%20Group)](http://computechem.cn)
 
 ## Requirements
 * [Gaussian](http://gaussian.com/)
@@ -20,18 +25,18 @@ Before you use GaussianRunner, please install [Gaussian](http://gaussian.com/) a
 
 ### With pip
 ```sh
-$ pip install GaussianRunner
+$ pip install gaussianrunner
 ```
 ### Build from source
 ```sh
 $ git clone https://github.com/njzjz/GaussianRunner.git
 $ cd GaussianRunner/
-$ python3 setup.py install
+$ pip install .
 ```
 
 You can test whether the program is running normally:
 ```sh
-% python3 setup.py test
+% python setup.py pytest
 ```
 
 ## Examples
