@@ -1,23 +1,21 @@
-import unittest
+import tempfile
+import logging
 import os
 from gaussianrunner import GaussianRunner, GaussianAnalyst
 
 
-class Test_all(unittest.TestCase):
+class Test_all:
     def test_gaussianrunner(self):
-        folder = "testfiles"
+        folder = tempfile.mkdtemp(prefix='testfiles-', dir='.')
+        logging.info(f'Folder: {folder}:')
+        os.chdir(folder)
         if not os.path.exists(folder):
             os.makedirs(folder)
         species = ['C']
-        paths = [os.path.join(folder, f'{spec}.log') for spec in species]
         logfiles = GaussianRunner(
-            keywords='opt freq b3lyp/6-31g(d,p)').runGaussianInParallel('SMILES', species, outputlist=paths)
+            keywords='opt b3lyp/6-31g(d,p)').runGaussianInParallel('SMILES', species)
         results = GaussianAnalyst(
-            properties=['free_energy']).readFromLOGs(logfiles)
+            properties=['energy']).readFromLOGs(logfiles)
         print(results)
 
-        self.assertTrue(results is not None)
-
-
-if __name__ == '__main__':
-    unittest.main()
+        assert results is not None
