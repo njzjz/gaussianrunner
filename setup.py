@@ -19,13 +19,11 @@ if __name__ == '__main__':
           author_email='jzzeng@stu.ecnu.edu.cn',
           install_requires=['numpy', 'coloredlogs'],
           extras_require={
-              "mpi": ["mpi4py"]
+              "mpi": ["mpi4py"],
+              "test": tests_require,
           },
           test_suite='gaussianrunner.test',
           tests_require=tests_require,
-          extras_require={
-              "test": tests_require,
-          },
           packages=find_packages(),
           python_requires='~=3.6',
           use_scm_version=True,
