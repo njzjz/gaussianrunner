@@ -9,6 +9,7 @@ if __name__ == '__main__':
     with open(path.join(this_directory, 'docs', 'README.md')) as f:
         long_description = f.read()
 
+    tests_require = ['pytest-sugar', 'pytest-cov']
     setup(name='gaussianrunner',
           version='1.0.14',
           description='A script to run Gaussian automatically.',
@@ -21,7 +22,10 @@ if __name__ == '__main__':
               "mpi": ["mpi4py"]
           },
           test_suite='gaussianrunner.test',
-          tests_require=['pytest-sugar'],
+          tests_require=tests_require,
+          extras_require={
+              "test": tests_require,
+          },
           packages=find_packages(),
           python_requires='~=3.6',
           use_scm_version=True,
