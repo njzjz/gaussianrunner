@@ -6,7 +6,7 @@ cache:
   - $HOME/.cache/pip
 env:
   global:
-    - PYTHON_VERSION=3.7 PIP_DEPENDENCIES="tox-conda tox-travis" CONDA_CHANNEL_PRIORITY=True CONDA_CHANNELS="conda-forge"
+    - PYTHON_VERSION=3.7 CONDA_DEPENDENCIES="tox-conda" CONDA_CHANNEL_PRIORITY=True CONDA_CHANNELS="conda-forge"
     - secure: "cwYqOqN7tSDoK1j7kjO9FMY6GBLndGmNH1aUTg5Yf6tzGh21ilvR0PHZByC97D2stfGqoFmyZv+xtEQJ8weGLspj7feg2m8e8BIege3+BiDzpOFnTzF/CyQLApAgIQNMQpjxFkkdOvbvCJIniKc8gsNm3JxTcrw+Iorfls1GAXS7juCOy6rQ+gZJPCLOUDLA4kzqgoL73lWz4I5yEXR3ifkfJFdvBlOX/UU0KYFKIfCm3YDtlymsMRpAdxBDsATb4OclKFU+9Lu62+XkkYzc7jfzyjvZQlu3NJzU/Iy9vEgQOx/EmputXy891bp4aQz3ZggHPZNX1sDEF8FdGcyjfCVq0P1KFxfkDvSBDZbg6AGBVQNlFBEM5SXN5jORLmwl4aXSBmsPM68X0P0ilrID1vPrAavVjqbpRPHNQ+jYcOCddtDd1T6syrHiCdG9WhGa2YFBzoWUbgY00R/S7L47jibkYrsxywTP++f37+S2JDXYo1XkDzJIkWjddeYxn09hOn6PlSuUR9692h4F9L0h5myVyyEJgQoRxTu7+4ArtarxDC/j/7cB70x+uvUPpaPnehppbZU4N11/Dp/R+Wk4EZVW1DR23dAgQzcCoEbWelTtV1AKR7rh+6rSLggOzjoMf1fJxhlBxiTIDKvN6E5i77VBYp3s9hdKsMLTqSUKZTM="
 before_install: git clone --depth 1 https://github.com/circulosmeos/gdown.pl && ./gdown.pl/gdown.pl $GAUSSIANURL 'g16.tgz'>/dev/null 2>&1 && tar -xzvf g16.tgz && g16root=$(pwd) source g16/bsd/g16.profile
 install: git clone --depth 1 git://github.com/astropy/ci-helpers.git && source ci-helpers/travis/setup_conda.sh
