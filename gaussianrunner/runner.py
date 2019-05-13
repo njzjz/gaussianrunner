@@ -69,7 +69,8 @@ class GaussianRunner:
                         f.write(result)
                 if analyst:
                     with open(f"{os.path.splitext(outputfile)[0]}.out", 'wb') as f:
-                        pickle.dump(analyst.readFromText(result, filename=outputfile), f)
+                        pickle.dump(analyst.readFromText(
+                            result, filename=outputfile), f)
         return outputlist
 
     def runGaussianFromInput(self, inputstr):
