@@ -1,14 +1,17 @@
 """GaussianRunner."""
 
 
+import logging
 import os
+import pickle
 import subprocess as sp
 from multiprocessing import cpu_count
 from multiprocessing.pool import ThreadPool
-import logging
+
+from .analyst import GaussianAnalyst
 
 
-class GaussianRunner(object):
+class GaussianRunner:
     def __init__(
             self, command="g16", cpu_num=None, nproc=4, keywords='',
             solution=False):
@@ -52,16 +55,21 @@ class GaussianRunner(object):
         outputlist = [f'{x}.log' for x in outputlist]
         return outputlist
 
-    def runGaussianInParallel(self, inputtype, inputlist, outputlist=None):
+    def runGaussianInParallel(self, inputtype, inputlist, outputlist=None, properties=None, savelog=True):
         inputtype = inputtype.lower()
         function = self.runGaussianFunction(inputtype)
         if outputlist is None:
             outputlist = self.generateLOGfilename(inputtype, inputlist)
+        analyst = properties and GaussianAnalyst(properties=properties)
         with ThreadPool(self.thread_num) as pool:
             results = pool.imap(function, inputlist)
             for outputfile, result in zip(outputlist, results):
-                with open(outputfile, 'w') as f:
-                    f.write(result)
+                if savelog:
+                    with open(outputfile, 'w') as f:
+                        f.write(result)
+                if analyst:
+                    with open(f"{os.path.splitext(outputfile)}.out", 'w') as f:
+                        pickle.dump(analyst.readFromText(result), f)
         return outputlist
 
     def runGaussianFromInput(self, inputstr):
