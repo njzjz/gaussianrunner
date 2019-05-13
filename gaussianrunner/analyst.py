@@ -4,7 +4,7 @@
 import numpy as np
 
 
-class GaussianAnalyst(object):
+class GaussianAnalyst:
     def __init__(self, properties=None):
         self.properties = properties if properties else ["energy"]
 
@@ -13,39 +13,45 @@ class GaussianAnalyst(object):
 
     def readFromLOG(self, filename):
         with open(filename) as f:
-            flag = 0
-            for line in f:
-                if line.startswith(" SCF Done") and "energy" in self.properties:
-                    energy = float(line.split()[4])
-                elif "Sum of electronic and thermal Free Energies=" in line and "free_energy" in self.properties:
-                    free_energy = float(line.split()[-1])
-                elif line.startswith(" Center     Atomic                   Forces (Hartrees/Bohr)") and "force" in self.properties:
-                    flag = 1
-                    force = []
-                elif line.startswith("                          Input orientation:") and ("coordinate" in self.properties or "atomic_number" in self.properties):
-                    flag = 5
-                    if "coordinate" in self.properties:
-                        coordinate = []
-                    if "atomic_number" in self.properties:
-                        atomic_number = []
+            return self.readFromLines(f, filename=filename)
 
-                if 1 <= flag <= 3 or 5 <= flag <= 9:
-                    flag += 1
-                elif flag == 4:
-                    if line.startswith(" -------"):
-                        flag = 0
-                    else:
-                        s = line.split()
-                        force.append([float(x) for x in s[2:5]])
-                elif flag == 10:
-                    if line.startswith(" -------"):
-                        flag = 0
-                    else:
-                        s = line.split()
-                        if "atomic_number" in self.properties:
-                            atomic_number.append(int(s[1]))
-                        if "coordinate" in self.properties:
-                            coordinate.append([float(x) for x in s[3:6]])
+    def readFromText(self, text, filename=None):
+        return self.readFromLines(text.splitlines(), filename=filename)
+
+    def readFromLines(self, lines, filename=None):
+        flag = 0
+        for line in lines:
+            if line.startswith(" SCF Done") and "energy" in self.properties:
+                energy = float(line.split()[4])
+            elif "Sum of electronic and thermal Free Energies=" in line and "free_energy" in self.properties:
+                free_energy = float(line.split()[-1])
+            elif line.startswith(" Center     Atomic                   Forces (Hartrees/Bohr)") and "force" in self.properties:
+                flag = 1
+                force = []
+            elif line.startswith("                          Input orientation:") and ("coordinate" in self.properties or "atomic_number" in self.properties):
+                flag = 5
+                if "coordinate" in self.properties:
+                    coordinate = []
+                if "atomic_number" in self.properties:
+                    atomic_number = []
+
+            if 1 <= flag <= 3 or 5 <= flag <= 9:
+                flag += 1
+            elif flag == 4:
+                if line.startswith(" -------"):
+                    flag = 0
+                else:
+                    s = line.split()
+                    force.append([float(x) for x in s[2:5]])
+            elif flag == 10:
+                if line.startswith(" -------"):
+                    flag = 0
+                else:
+                    s = line.split()
+                    if "atomic_number" in self.properties:
+                        atomic_number.append(int(s[1]))
+                    if "coordinate" in self.properties:
+                        coordinate.append([float(x) for x in s[3:6]])
 
         read_properties = {'name': filename}
         if "energy" in self.properties:
