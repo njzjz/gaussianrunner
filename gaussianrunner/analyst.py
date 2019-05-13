@@ -13,12 +13,12 @@ class GaussianAnalyst:
 
     def readFromLOG(self, filename):
         with open(filename) as f:
-            return self.readFromLines(f)
+            return self.readFromLines(f, filename=filename)
 
-    def readFromText(self, text):
-        return self.readFromLines(text.splitlines())
+    def readFromText(self, text, filename=None):
+        return self.readFromLines(text.splitlines(), filename=filename)
 
-    def readFromLines(self, lines):
+    def readFromLines(self, lines, filename=None):
         flag = 0
         for line in lines:
             if line.startswith(" SCF Done") and "energy" in self.properties:
