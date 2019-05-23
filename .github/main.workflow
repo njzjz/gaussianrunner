@@ -24,4 +24,7 @@ action "Tox" {
     "CODECOV_TOKEN",
     "GAUSSIANURL",
   ]
+  env = {
+    SETUP_GAUSSIAN = "True"
+  }
 }
