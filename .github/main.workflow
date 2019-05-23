@@ -19,5 +19,9 @@ workflow "Test" {
 
 action "Tox" {
   uses = "njzjz/actions/tox-conda@master"
-  secrets = ["COVERALLS_REPO_TOKEN", "CODECOV_TOKEN"]
+  secrets = [
+    "COVERALLS_REPO_TOKEN",
+    "CODECOV_TOKEN",
+    "GAUSSIANURL",
+  ]
 }
