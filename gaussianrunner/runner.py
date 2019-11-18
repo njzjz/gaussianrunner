@@ -99,6 +99,6 @@ class GaussianRunner:
     def generateGJF(self, gaussianstr):
         keywords = f'%nproc={self.nproc}\n# {self.keywords} {" scrf=smd " if self.solution else ""}'
         s = gaussianstr.split('\n')
-        s[0] = keywords
-        s[2] = 'Run automatically by GaussianRunner'
+        s[1] = keywords
+        s[3] = 'Run automatically by GaussianRunner'
         return '\n'.join(s)
