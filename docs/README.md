@@ -16,12 +16,12 @@ A Python script to run Gaussian automatically and in batches.
 
 ## Requirements
 * [Gaussian](http://gaussian.com/)
-* [OpenBabel](https://github.com/openbabel/openbabel)
+* [OpenBabel](https://github.com/openbabel/openbabel) >=3.0
 * [MPI4PY](https://github.com/mpi4py/mpi4py) (if you need to run with MPI)
 
 ## Installation
 
-Before you use GaussianRunner, please install [Gaussian](http://gaussian.com/) and [OpenBabel](https://github.com/openbabel/openbabel) first.
+Before you use GaussianRunner, please install [Gaussian](http://gaussian.com/) and [OpenBabel](https://github.com/openbabel/openbabel) 3.0 first.
 
 ### With pip
 
