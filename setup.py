@@ -41,4 +41,5 @@ if __name__ == '__main__':
               "Topic :: Software Development :: Version Control :: Git",
           ],
           zip_safe=True,
+          fallback_version="1.0.0",
           )
