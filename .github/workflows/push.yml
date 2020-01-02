@@ -16,10 +16,9 @@ jobs:
       env:
         GAUSSIANURL: ${{ secrets.GAUSSIANURL }}
     - run: tar -xzvf g16.tgz
-    - run: source $g16root/g16/bsd/g16.profile
-      env:
-        g16root: /home/runner/work/gaussianrunner/gaussianrunner
     - run: tox
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        g16root: /home/runner/work/gaussianrunner/gaussianrunner
+        PATH: /home/runner/work/gaussianrunner/gaussianrunner/g16:/home/runner/work/gaussianrunner/gaussianrunner/g16/bsd:$PATH
