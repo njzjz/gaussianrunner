@@ -24,4 +24,3 @@ jobs:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         g16root: /home/runner/work
-        PATH: /home/runner/work/g16:/home/runner/work/g16/bsd:$PATH
