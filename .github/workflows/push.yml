@@ -17,6 +17,8 @@ jobs:
         GAUSSIANURL: ${{ secrets.GAUSSIANURL }}
     - run: tar -xzvf g16.tgz
     - run: source g16/bsd/g16.profile
+      env:
+        g16root: /home/runner/work
     - run: tox
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
