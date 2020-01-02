@@ -11,7 +11,7 @@ jobs:
         python-version: '3.7'
         architecture: 'x64'
     - run: pip install tox-conda
-    - run: test $GAUSSIANURL && git clone --depth 1 https://github.com/circulosmeos/gdown.pl && ./gdown.pl/gdown.pl $GAUSSIANURL "g16.tgz">/dev/null 2>&1 && tar -xzvf g16.tgz && g16root=$(pwd) source g16/bsd/g16.profile
+    - run: test $GAUSSIANURL && git clone --depth 1 https://github.com/circulosmeos/gdown.pl && ./gdown.pl/gdown.pl $GAUSSIANURL "g16.tgz">/dev/null 2>&1 && tar -xzvf g16.tgz && g16root=`pwd` source g16/bsd/g16.profile
       env:
         GAUSSIANURL: ${{ secrets.GAUSSIANURL }}
     - run: tox
