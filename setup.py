@@ -26,7 +26,9 @@ if __name__ == '__main__':
           tests_require=tests_require,
           packages=find_packages(),
           python_requires='~=3.6',
-          use_scm_version=True,
+          use_scm_version={
+              "fallback_version": "1.0.0",
+          },
           setup_requires=['setuptools_scm', 'pytest-runner'],
           long_description=long_description,
           long_description_content_type='text/markdown',
