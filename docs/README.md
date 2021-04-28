@@ -14,27 +14,12 @@ A Python script to run Gaussian automatically and in batches.
 
 [![Research Group](https://img.shields.io/website-up-down-green-red/http/computchem.cn.svg?label=Research%20Group)](http://computechem.cn)
 
-## Requirements
-* [Gaussian](http://gaussian.com/)
-* [OpenBabel](https://github.com/openbabel/openbabel) >=3.0
-* [MPI4PY](https://github.com/mpi4py/mpi4py) (if you need to run with MPI)
-
 ## Installation
 
-Before you use GaussianRunner, please install [Gaussian](http://gaussian.com/) and [OpenBabel](https://github.com/openbabel/openbabel) 3.0 first.
-
-### With pip
+Before you use GaussianRunner, please install [Gaussian](http://gaussian.com/) first.
 
 ```sh
 $ pip install gaussianrunner
-```
-
-### Build from source
-
-```sh
-$ git clone https://github.com/njzjz/GaussianRunner.git
-$ cd GaussianRunner/
-$ pip install .
 ```
 
 You can test whether the program is running normally:
