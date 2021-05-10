@@ -17,7 +17,7 @@ if __name__ == '__main__':
           url='https://github.com/njzjz/gaussianrunner',
           author='Jinzhe Zeng',
           author_email='jzzeng@stu.ecnu.edu.cn',
-          install_requires=['numpy', 'coloredlogs'],
+          install_requires=['numpy', 'coloredlogs', "openbabel-wheel"],
           extras_require={
               "mpi": ["mpi4py"],
               "test": tests_require,

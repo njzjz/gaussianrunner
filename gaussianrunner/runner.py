@@ -7,6 +7,7 @@ import pickle
 import subprocess as sp
 from multiprocessing import cpu_count
 from multiprocessing.pool import ThreadPool
+from openbabel import openbabel
 
 from .analyst import GaussianAnalyst
 
@@ -82,19 +83,28 @@ class GaussianRunner:
             output = self.runGaussianFromInput(f.read())
         return output
 
-    def runGaussianWithOpenBabel(self, obabel_command):
-        inputstr = self.runCommand(obabel_command)
+    def runGaussianWithOpenBabel(self, inputstr):
         inputstr = self.generateGJF(inputstr)
         output = self.runGaussianFromInput(inputstr)
         return output
 
     def runGaussianFromType(self, filename, fileformat):
-        obabel_command = f'obabel -i {fileformat} {filename} -ogjf'
-        return self.runGaussianWithOpenBabel(obabel_command)
+        obConversion = openbabel.OBConversion()
+        obConversion.SetInAndOutFormats(fileformat, "gjf")
+        mol = openbabel.OBMol()
+        obConversion.ReadFile(mol, filename)
+        inputstr = obConversion.WriteString(mol)
+        return self.runGaussianWithOpenBabel(inputstr)
 
     def runGaussianFromSMILES(self, SMILES):
-        obabel_command = f'obabel -:{SMILES} --gen3d -ogjf'
-        return self.runGaussianWithOpenBabel(obabel_command)
+        obConversion = openbabel.OBConversion()
+        obConversion.SetInAndOutFormats("smi", "gjf")
+        mol = openbabel.OBMol()
+        obConversion.ReadString(mol, SMILES)
+        gen3d = openbabel.OBOp.FindType("Gen3D")
+        gen3d.Do(mol, "--best")
+        inputstr = obConversion.WriteString(mol)
+        return self.runGaussianWithOpenBabel(inputstr)
 
     def generateGJF(self, gaussianstr):
         keywords = f'%nproc={self.nproc}\n# {self.keywords} {" scrf=smd " if self.solution else ""}'
