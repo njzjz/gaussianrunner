@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=61", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gaussianrunner"
+dynamic = ["version"]
+description = "A script to run Gaussian automatically."
+authors = [
+  {name = "Jinzhe Zeng", email = "jinzhe.zeng@rutgers.edu"},
+]
+license = {file = "LICENSE"}
+classifiers = [
+    "Natural Language :: English",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Version Control :: Git",
+]
+dependencies = [
+    'numpy',
+    'coloredlogs',
+    "openbabel-wheel",
+]
+requires-python = ">=3.6"
+readme = "docs/README.md"
+keywords = ["gaussian"]
+
+[project.urls]
+homepage = "https://github.com/njzjz/gaussianrunner"
+repository = "https://github.com/njzjz/gaussianrunner"
+
+[project.entry-points.console_scripts]
+datasetbuilder = "mddatasetbuilder.datasetbuilder:_commandline"
+qmcalc = "mddatasetbuilder.qmcalc:_commandline"
+preparedeepmd = "mddatasetbuilder.deepmd:_commandline"
+
+[project.optional-dependencies]
+test = [
+    'pytest-sugar',
+    'pytest-cov',
+    'fakegaussian>=0.0.2'
+]
+mpi = ['mpi4py']
+
+[tool.setuptools.packages.find]
+include = ["mddatasetbuilder*"]
+
+[tool.setuptools_scm]
