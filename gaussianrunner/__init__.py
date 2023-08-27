@@ -2,10 +2,11 @@
 import logging
 
 import coloredlogs
+
 try:
-    from importlib.metadata import version, PackageNotFoundError
+    from importlib.metadata import PackageNotFoundError, version
 except ModuleNotFoundError:
-    from importlib_metadata import version, PackageNotFoundError
+    from importlib_metadata import PackageNotFoundError, version
 
 from .analyst import GaussianAnalyst
 from .runner import GaussianRunner
