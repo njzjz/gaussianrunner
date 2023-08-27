@@ -13,6 +13,21 @@ from .analyst import GaussianAnalyst
 
 
 class GaussianRunner:
+    """Gaussian Runner.
+    
+    Parameters
+    ----------
+    command : str
+        Gausssian command
+    cpu_num : int
+        the number of total CPU processors
+    nproc : int
+        the number of processors per job
+    keyworks : str
+        Gaussian keywords
+    solution : bool
+        whether in solution 
+    """
     def __init__(
         self, command="g16", cpu_num=None, nproc=4, keywords="", solution=False
     ):
@@ -24,6 +39,20 @@ class GaussianRunner:
         self.solution = solution
 
     def runCommand(self, command, inputstr=None):
+        """Run command.
+        
+        Parameters
+        ----------
+        command : str
+            the command to run
+        inputstr : str
+            input pipeline
+        
+        Returns
+        -------
+        str
+            the output
+        """
         try:
             output = sp.check_output(
                 command.split(), input=(inputstr.encode() if inputstr else None)
@@ -34,6 +63,18 @@ class GaussianRunner:
         return output
 
     def runGaussianFunction(self, fileformat):
+        """Run Gaussian from format.
+        
+        Parameters
+        ----------
+        fileformat : str
+            the format of input
+    
+        Returns
+        -------
+        Callable
+            the method to run Gaussian
+        """
         if fileformat == "input":
             function = self.runGaussianFromInput
         elif fileformat == "gjf":
@@ -49,6 +90,20 @@ class GaussianRunner:
 
     @classmethod
     def generateLOGfilename(cls, inputformat, inputlist):
+        """Generate log file names.
+        
+        Parameters
+        ----------
+        fileformat : str
+            the format of input
+        inputlist : list
+            list of inputs
+        
+        Returns
+        -------
+        list[str]
+            list of output file names
+        """
         if inputformat == "input":
             outputlist = range(len(inputlist))
         elif inputformat == "smiles":
