@@ -108,7 +108,7 @@ class GaussianRunner:
         if inputformat == "input":
             outputlist = range(len(inputlist))
         elif inputformat == "smiles":
-            outputlist = [x.replace("/", "／").replace("\\", "＼") for x in inputlist]
+            outputlist = [x.replace("/", "／").replace("\\", "＼") for x in inputlist]  # noqa: RUF001
         else:
             outputlist = [os.path.splitext(x)[0] for x in inputlist]
         outputlist = [f"{x}.log" for x in outputlist]
