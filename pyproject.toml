@@ -54,3 +54,25 @@ mpi = ['mpi4py']
 include = ["mddatasetbuilder*"]
 
 [tool.setuptools_scm]
+
+[tool.ruff]
+select = [
+    "E", # errors
+    "F", # pyflakes
+    "D", # pydocstyle
+    "I", # isort
+    "UP", # pyupgrade
+    "C4", # flake8-comprehensions
+    "NPY", # numpy
+    "RUF", # ruff
+]
+ignore = [
+    "D100",
+    "D101",
+    "D102",
+    "D104",
+    "E501",
+]
+
+[tool.ruff.pydocstyle]
+convention = "numpy"

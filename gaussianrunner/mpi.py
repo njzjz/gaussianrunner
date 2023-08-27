@@ -1,3 +1,4 @@
+"""Running multiple Gaussian jobs using MPI."""
 import logging
 
 from mpi4py import MPI
