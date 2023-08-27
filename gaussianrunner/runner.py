@@ -7,6 +7,7 @@ import pickle
 import subprocess as sp
 from multiprocessing import cpu_count
 from multiprocessing.pool import ThreadPool
+
 from openbabel import openbabel
 
 from .analyst import GaussianAnalyst
@@ -108,7 +109,9 @@ class GaussianRunner:
         if inputformat == "input":
             outputlist = range(len(inputlist))
         elif inputformat == "smiles":
-            outputlist = [x.replace("/", "／").replace("\\", "＼") for x in inputlist]  # noqa: RUF001
+            outputlist = [
+                x.replace("/", "／").replace("\\", "＼") for x in inputlist
+            ]  # noqa: RUF001
         else:
             outputlist = [os.path.splitext(x)[0] for x in inputlist]
         outputlist = [f"{x}.log" for x in outputlist]
