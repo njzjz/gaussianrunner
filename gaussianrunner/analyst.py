@@ -23,12 +23,22 @@ class GaussianAnalyst:
         for line in lines:
             if line.startswith(" SCF Done") and "energy" in self.properties:
                 energy = float(line.split()[4])
-            elif "Sum of electronic and thermal Free Energies=" in line and "free_energy" in self.properties:
+            elif (
+                "Sum of electronic and thermal Free Energies=" in line
+                and "free_energy" in self.properties
+            ):
                 free_energy = float(line.split()[-1])
-            elif line.startswith(" Center     Atomic                   Forces (Hartrees/Bohr)") and "force" in self.properties:
+            elif (
+                line.startswith(
+                    " Center     Atomic                   Forces (Hartrees/Bohr)"
+                )
+                and "force" in self.properties
+            ):
                 flag = 1
                 force = []
-            elif line.startswith("                          Input orientation:") and ("coordinate" in self.properties or "atomic_number" in self.properties):
+            elif line.startswith("                          Input orientation:") and (
+                "coordinate" in self.properties or "atomic_number" in self.properties
+            ):
                 flag = 5
                 if "coordinate" in self.properties:
                     coordinate = []
@@ -53,7 +63,7 @@ class GaussianAnalyst:
                     if "coordinate" in self.properties:
                         coordinate.append([float(x) for x in s[3:6]])
 
-        read_properties = {'name': filename}
+        read_properties = {"name": filename}
         if "energy" in self.properties:
             try:
                 read_properties["energy"] = energy

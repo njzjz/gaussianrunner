@@ -14,49 +14,53 @@ from .analyst import GaussianAnalyst
 
 class GaussianRunner:
     def __init__(
-            self, command="g16", cpu_num=None, nproc=4, keywords='',
-            solution=False):
+        self, command="g16", cpu_num=None, nproc=4, keywords="", solution=False
+    ):
         self.command = command
         self.cpu_num = cpu_num if cpu_num else cpu_count()
         self.nproc = min(nproc, self.cpu_num)
-        self.thread_num = self.cpu_num//self.nproc
+        self.thread_num = self.cpu_num // self.nproc
         self.keywords = keywords
         self.solution = solution
 
     def runCommand(self, command, inputstr=None):
         try:
-            output = sp.check_output(command.split(), input=(
-                inputstr.encode() if inputstr else None)).decode('utf-8')
+            output = sp.check_output(
+                command.split(), input=(inputstr.encode() if inputstr else None)
+            ).decode("utf-8")
         except sp.CalledProcessError as e:
-            output = e.output.decode('utf-8')
+            output = e.output.decode("utf-8")
             logging.error(f"Run command {command} fail.")
         return output
 
     def runGaussianFunction(self, fileformat):
-        if fileformat == 'input':
+        if fileformat == "input":
             function = self.runGaussianFromInput
-        elif fileformat == 'gjf':
+        elif fileformat == "gjf":
             function = self.runGaussianFromGJF
-        elif fileformat == 'smiles':
+        elif fileformat == "smiles":
             function = self.runGaussianFromSMILES
         else:
+
             def function(filename):
                 return self.runGaussianFromType(filename, fileformat)
+
         return function
 
     @classmethod
     def generateLOGfilename(cls, inputformat, inputlist):
-        if inputformat == 'input':
+        if inputformat == "input":
             outputlist = range(len(inputlist))
-        elif inputformat == 'smiles':
-            outputlist = [x.replace('/', '／') .replace('\\', '＼')
-                          for x in inputlist]
+        elif inputformat == "smiles":
+            outputlist = [x.replace("/", "／").replace("\\", "＼") for x in inputlist]
         else:
             outputlist = [os.path.splitext(x)[0] for x in inputlist]
-        outputlist = [f'{x}.log' for x in outputlist]
+        outputlist = [f"{x}.log" for x in outputlist]
         return outputlist
 
-    def runGaussianInParallel(self, inputtype, inputlist, outputlist=None, properties=None, savelog=True):
+    def runGaussianInParallel(
+        self, inputtype, inputlist, outputlist=None, properties=None, savelog=True
+    ):
         inputtype = inputtype.lower()
         function = self.runGaussianFunction(inputtype)
         if outputlist is None:
@@ -66,12 +70,13 @@ class GaussianRunner:
             results = pool.imap(function, inputlist)
             for outputfile, result in zip(outputlist, results):
                 if savelog:
-                    with open(outputfile, 'w') as f:
+                    with open(outputfile, "w") as f:
                         f.write(result)
                 if analyst:
-                    with open(f"{os.path.splitext(outputfile)[0]}.out", 'wb') as f:
-                        pickle.dump(analyst.readFromText(
-                            result, filename=outputfile), f)
+                    with open(f"{os.path.splitext(outputfile)[0]}.out", "wb") as f:
+                        pickle.dump(
+                            analyst.readFromText(result, filename=outputfile), f
+                        )
         return outputlist
 
     def runGaussianFromInput(self, inputstr):
@@ -108,7 +113,7 @@ class GaussianRunner:
 
     def generateGJF(self, gaussianstr):
         keywords = f'%nproc={self.nproc}\n# {self.keywords} {" scrf=smd " if self.solution else ""}'
-        s = gaussianstr.split('\n')
+        s = gaussianstr.split("\n")
         s[1] = keywords
-        s[3] = 'Run automatically by GaussianRunner'
-        return '\n'.join(s)
+        s[3] = "Run automatically by GaussianRunner"
+        return "\n".join(s)
