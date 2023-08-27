@@ -8,12 +8,6 @@
 
 A Python script to run Gaussian automatically and in batches.
 
-**Author**: Jinzhe Zeng
-
-**Email**: jzzeng@stu.ecnu.edu.cn
-
-[![Research Group](https://img.shields.io/website-up-down-green-red/http/computchem.cn.svg?label=Research%20Group)](http://computechem.cn)
-
 ## Installation
 
 Before you use GaussianRunner, please install [Gaussian](http://gaussian.com/) first.
