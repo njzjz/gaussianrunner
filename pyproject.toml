@@ -66,6 +66,13 @@ select = [
     "NPY", # numpy
     "RUF", # ruff
 ]
+ignore = [
+    "D100",
+    "D101",
+    "D102",
+    "D104",
+    "D501",
+]
 
 [tool.ruff.pydocstyle]
 convention = "numpy"
