@@ -2,9 +2,7 @@
 
 [![python version](https://img.shields.io/pypi/pyversions/gaussianrunner.svg?logo=python&logoColor=white)](https://pypi.org/project/gaussianrunner)
 [![PyPI](https://img.shields.io/pypi/v/gaussianrunner.svg)](https://pypi.org/project/gaussianrunner)
-[![Coverage Status](https://coveralls.io/repos/github/njzjz/gaussianrunner/badge.svg?branch=master)](https://coveralls.io/github/njzjz/gaussianrunner?branch=master)
 [![codecov](https://codecov.io/gh/njzjz/gaussianrunner/branch/master/graph/badge.svg)](https://codecov.io/gh/njzjz/gaussianrunner)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cd4677ce1411486da534f62bd9306c2c)](https://www.codacy.com/app/jzzeng/gaussianrunner?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=njzjz/gaussianrunner&amp;utm_campaign=Badge_Grade)
 
 A Python script to run Gaussian automatically and in batches.
 
