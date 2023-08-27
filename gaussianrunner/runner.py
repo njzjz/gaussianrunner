@@ -14,7 +14,7 @@ from .analyst import GaussianAnalyst
 
 class GaussianRunner:
     """Gaussian Runner.
-    
+
     Parameters
     ----------
     command : str
@@ -26,8 +26,9 @@ class GaussianRunner:
     keyworks : str
         Gaussian keywords
     solution : bool
-        whether in solution 
+        whether in solution
     """
+
     def __init__(
         self, command="g16", cpu_num=None, nproc=4, keywords="", solution=False
     ):
@@ -40,14 +41,14 @@ class GaussianRunner:
 
     def runCommand(self, command, inputstr=None):
         """Run command.
-        
+
         Parameters
         ----------
         command : str
             the command to run
         inputstr : str
             input pipeline
-        
+
         Returns
         -------
         str
@@ -64,12 +65,12 @@ class GaussianRunner:
 
     def runGaussianFunction(self, fileformat):
         """Run Gaussian from format.
-        
+
         Parameters
         ----------
         fileformat : str
             the format of input
-    
+
         Returns
         -------
         Callable
@@ -91,14 +92,14 @@ class GaussianRunner:
     @classmethod
     def generateLOGfilename(cls, inputformat, inputlist):
         """Generate log file names.
-        
+
         Parameters
         ----------
         fileformat : str
             the format of input
         inputlist : list
             list of inputs
-        
+
         Returns
         -------
         list[str]

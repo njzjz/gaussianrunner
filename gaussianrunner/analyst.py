@@ -6,18 +6,19 @@ import numpy as np
 
 class GaussianAnalyst:
     """Gaussian Analyst.
-    
+
     Parameters
     ----------
     properties : list[str]
         properties to be read
     """
+
     def __init__(self, properties=None):
         self.properties = properties if properties is not None else ["energy"]
 
     def readFromLOGs(self, filenamelist):
         """Read from log files.
-        
+
         Parameters
         ----------
         filenamelist : list[str]
@@ -27,7 +28,7 @@ class GaussianAnalyst:
 
     def readFromLOG(self, filename):
         """Read from a log file.
-        
+
         Parameters
         ----------
         filename : str
@@ -38,7 +39,7 @@ class GaussianAnalyst:
 
     def readFromText(self, text, filename=None):
         """Read from text.
-        
+
         Parameters
         ----------
         text : str
@@ -50,7 +51,7 @@ class GaussianAnalyst:
 
     def readFromLines(self, lines, filename=None):
         """Read from lines.
-        
+
         Parameters
         ----------
         lines : list[str]
