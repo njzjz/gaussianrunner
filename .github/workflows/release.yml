@@ -1,15 +1,22 @@
-on: release
+on: [push, pull_request]
 name: Release to pypi
 jobs:
-  publish:
+  release:
+    name: Release to pypi
     runs-on: ubuntu-latest
+    permissions:
+        # IMPORTANT: this permission is mandatory for trusted publishing
+        id-token: write
     steps:
-    - uses: actions/checkout@master
-    - name: publish
-      uses: mariamrf/py-package-publish-action@master
-      env:
-        PYTHON_VERSION: 3.7.3
-        TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
-        TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
+    - uses: actions/checkout@v3
+    - name: Setup python
+      uses: actions/setup-python@v4
       with:
-        args: check
+        python-version: 3.x
+        architecture: x64
+    - name: Install dependencies
+      run: python -m pip install build
+    - run: python -m build
+    - name: Publish a Python distribution to PyPI
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+      uses: pypa/gh-action-pypi-publish@release/v1
