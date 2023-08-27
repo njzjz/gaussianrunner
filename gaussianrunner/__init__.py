@@ -2,7 +2,11 @@
 import logging
 
 import coloredlogs
-from pkg_resources import DistributionNotFound, get_distribution
+
+try:
+    from importlib.metadata import PackageNotFoundError, version
+except ModuleNotFoundError:
+    from importlib_metadata import PackageNotFoundError, version
 
 from .analyst import GaussianAnalyst
 from .runner import GaussianRunner
@@ -10,8 +14,8 @@ from .runner import GaussianRunner
 __all__ = ["GaussianRunner", "GaussianAnalyst"]
 
 try:
-    __version__ = get_distribution(__name__).version
-except DistributionNotFound:
+    __version__ = version(__name__)
+except PackageNotFoundError:
     # package is not installed
     __version__ = ""
 

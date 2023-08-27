@@ -28,6 +28,7 @@ dependencies = [
     'numpy',
     'coloredlogs',
     "openbabel-wheel",
+    'importlib_metadata>=1.4; python_version < "3.8"',
 ]
 requires-python = ">=3.7"
 readme = "docs/README.md"
