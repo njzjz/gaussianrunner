@@ -52,7 +52,7 @@ test = [
 mpi = ['mpi4py']
 
 [tool.setuptools.packages.find]
-include = ["mddatasetbuilder*"]
+include = ["gaussianrunner*"]
 
 [tool.setuptools_scm]
 
