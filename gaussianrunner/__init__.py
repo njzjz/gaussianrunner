@@ -1,4 +1,5 @@
 """Init."""
+
 import logging
 
 import coloredlogs

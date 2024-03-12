@@ -1,6 +1,5 @@
 """GaussianAnalyst."""
 
-
 import numpy as np
 
 
