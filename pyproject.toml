@@ -38,7 +38,7 @@ keywords = ["gaussian"]
 homepage = "https://github.com/njzjz/gaussianrunner"
 repository = "https://github.com/njzjz/gaussianrunner"
 
-[project.entry-points.console_scripts]
+[project.scripts]
 datasetbuilder = "mddatasetbuilder.datasetbuilder:_commandline"
 qmcalc = "mddatasetbuilder.qmcalc:_commandline"
 preparedeepmd = "mddatasetbuilder.deepmd:_commandline"
