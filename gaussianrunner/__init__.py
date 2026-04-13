@@ -12,7 +12,7 @@ except ModuleNotFoundError:
 from .analyst import GaussianAnalyst
 from .runner import GaussianRunner
 
-__all__ = ["GaussianRunner", "GaussianAnalyst"]
+__all__ = ["GaussianAnalyst", "GaussianRunner"]
 
 try:
     __version__ = version(__name__)
