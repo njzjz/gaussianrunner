@@ -27,7 +27,7 @@ classifiers = [
 dependencies = [
     'numpy',
     'coloredlogs',
-    "openbabel-wheel",
+    "openbabel>=3.2.0",
     'importlib_metadata>=1.4; python_version < "3.8"',
 ]
 requires-python = ">=3.7"
